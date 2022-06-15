@@ -1,16 +1,9 @@
 <?php
-$host = 'xxx';
 
-// db
-$db_name = 'contatos';
-$db_host = 'localhost';
-$db_user = 'root';
-$db_pass = '';
+  $srv = '127.0.0.1';
+  $usr ='root';
+  $pas ='';
+  $bas ='agenda telefonica';
 
-try {
-  $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-} catch (\Throwable $th) {
-  throw $th;
-}
-
+  $db = new mysqli($srv,$usr,$pas,$bas);
     ?>
