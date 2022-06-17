@@ -1,8 +1,7 @@
 <?php 
   require './config.php';
-
   $post = filter_input_array(INPUT_POST,FILTER_DEFAULT);
-  
+  $get = filter_input_array(INPUT_GET,FILTER_DEFAULT);
 
   if(!empty($post['nome'])){ 
    
@@ -17,7 +16,14 @@
   }
   $select = $db->query("SELECT * FROM contatos");
   $select2 = $db->query("SELECT * FROM contatos");
+  $select3 = $db->query("SELECT * FROM contatos");
 
+  if($get['edit'] == 1){ 
+    $id = $get['id'];
+    $select_edit = $db->query("SELECT * FROM contatos WHERE id = '$id'");
+    $list = $select_edit->fetch_assoc();
+    print_r($list);
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +53,7 @@
             </div>
             <div class="white-box text-info">...</div>
             <div class="d-flex row   justify-content-center mt  mt-5">
-                <button class="col-lg-2 " data-toggle="modal" data-target="#editar">Editar contatos</button>
+                <button class="col-lg-2 " data-toggle="modal" data-target="#editar" >Editar contatos</button>
             </div>
             <div class="white-box text-info">...</div>
             <div class="d-flex row   justify-content-center mt  mt-5">
@@ -83,6 +89,9 @@
               </thead>
               <tbody>
                 <tr>
+                  <input type="hidden" name="contatos" id="contatos" value="1">
+                  <input type="hidden" name="edit" id="edit"value="<?php $list['id'] ?>">
+                  <input type="hidden" name="id" id="id" value="1">
                   <td scope="col-lg-4">
                     <input type="text" name="nome" id="nome" value="">
                   </td>
@@ -151,19 +160,20 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editarTitle">selecione e edite os contatos</h5>
+          <h5 class="modal-title" id="editarTitle">Selecione o contato a ser editado</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <table class="table table-bordered table-hover">
+          <table class="table table-bordered ">
               <thead>
                 <tr>
                   <th scope="col-lg-3">#id</th>
                   <th scope="col-lg-3">Nome</th>
                   <th scope="col-lg-3">E-mail</th>
                   <th scope="col-lg-3">Telefone</th>
+                  <th style="height:50px; width:50px;"><img class="img-fluid" src="lapis.jpg" style="height:50px; width:50px;"></th>
                 </tr>
               </thead> 
               <tbody>
@@ -176,14 +186,54 @@
                     <td><?=$linhas2['nome'] ?></td>
                     <td><?=$linhas2['email'] ?></td>
                     <td><?=$linhas2['numero'] ?></td>
+                    <th >
+                     <a href="index.php?edit=1&id=<?= $linhas2['id']?>" >
+                        <button class="btn text-nowrap" href="index.php?edit=1&id=<?= $linhas2['id']?>" type="button"data-bs-toggle="tooltip" data-bs-placement="right" title="editar esse contato" style="height:50px; width:50px; padding:0px 0px ;">
+                          <img class="img-fluid" src="engrenagem.jpg" style="height:50px; width:50px;">
+                        </button>
+                      </a>  
+                    </th>
                 </tr>
                 <?php }?>
               </tbody> 
             </table>
+            <h5 class="modal-title text-center" id="editarTitle">Edite o contato selecionado nos campos abaixo</h5>
+            <form action="" method="post" id="002">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col-lg-4">
+                    <label for="nome">Nome</label>
+                  </th>
+                  <th scope="col-lg-4">
+                    <label for="email">E-mail</label>
+                  </th>
+                  <th scope="col-lg-4">
+                    <label for="numero">Telefone</label>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td scope="col-lg-4">
+                    <input type="text" name="nome" id="nome" value="<?= $list['nome'] ?>">
+                  </td>
+                  <td scope="col-lg-4">
+                    <input type="text" name="email" id="email" value="<?= $list['email'] ?>">
+                  </td>
+                  <td scope="col-lg-4">
+                    <input type="text" name="numero" id="numero" value="<?= $list['numero'] ?>">
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+          </form>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+          <button type="submit" class="btn btn-primary" form="002">Salvar mudanças</button>
         </div>
       </div>
     </div>
@@ -199,16 +249,34 @@
           </button>
         </div>
         <div class="modal-body">
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered ">
               <thead>
                 <tr>
                   <th scope="col-lg-3">#id</th>
                   <th scope="col-lg-3">Nome</th>
                   <th scope="col-lg-3">E-mail</th>
                   <th scope="col-lg-3">Telefone</th>
+                  <th style="height:50px; width:50px;"><img class="img-fluid" src="lixeira.jpg" style="height:50px; width:50px;"></th>
                 </tr>
               </thead> 
-               
+              <tbody>
+                <?php
+                  while($linhas3 = $select3->fetch_assoc()){
+
+                ?>
+                <tr>
+                    <td><?=$linhas3['id'] ?></td>
+                    <td><?=$linhas3['nome'] ?></td>
+                    <td><?=$linhas3['email'] ?></td>
+                    <td><?=$linhas3['numero'] ?></td>
+                    <th >
+                      <button class="btn text-nowrap" type="button"data-bs-toggle="tooltip" data-bs-placement="right" title="excluir esse contato" style="height:50px; width:50px; padding:0px 0px ;">
+                        <img class="img-fluid" src="deletar.jpg" style="height:50px; width:50px;">
+                      </button>
+                    </th>
+                </tr>
+                <?php }?>
+              </tbody> 
             </table>
         </div>
         <div class="modal-footer">
