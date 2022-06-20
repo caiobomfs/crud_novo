@@ -3,27 +3,45 @@
   $post = filter_input_array(INPUT_POST,FILTER_DEFAULT);
   $get = filter_input_array(INPUT_GET,FILTER_DEFAULT);
 
-  if(!empty($post['nome'])){ 
-   
-
-    $nome = $post['nome'];
-    $email = $post['email'];
-    $numero = $post['numero'];
-    $sql = "INSERT INTO `contatos` (`id`, `nome`, `email`, `numero`) VALUES (NULL, '$nome', '$email', '$numero');";
+  if($post['contatos'] == 1){
+    if(!empty($post['nome'])){ 
     
-    $db->query($sql);
-   
+
+      $nome = $post['nome'];
+      $email = $post['email'];
+      $numero = $post['numero'];
+      $sql = "INSERT INTO `contatos` (`id`, `nome`, `email`, `numero`) VALUES (NULL, '$nome', '$email', '$numero');";
+      
+      $db->query($sql);
+    
+    }
   }
-  $select = $db->query("SELECT * FROM contatos");
-  $select2 = $db->query("SELECT * FROM contatos");
-  $select3 = $db->query("SELECT * FROM contatos");
+
 
   if($get['edit'] == 1){ 
     $id = $get['id'];
     $select_edit = $db->query("SELECT * FROM contatos WHERE id = '$id'");
     $list = $select_edit->fetch_assoc();
-    print_r($list);
   }
+   if($post['edit']==1){ 
+    $id = $post['id'];
+    $nome = $post['nome'];
+    $email = $post['email'];
+    $numero = $post['numero'];
+
+    $sql_update = "UPDATE contatos SET nome = '$nome', email = '$email', numero = '$numero' WHERE  id = $id  ";
+    $db->query($sql_update);
+  }
+
+if($get['dell'] == 1){
+  $id = $get['id'];
+  $sql_dell = "DELETE FROM 'contatos' WHERE 'cadastro'. 'id'='$id'";
+  $db->query($sql_dell);
+}
+      
+  $select = $db->query("SELECT * FROM contatos");
+  $select2 = $db->query("SELECT * FROM contatos");
+  $select3 = $db->query("SELECT * FROM contatos");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,9 +107,12 @@
               </thead>
               <tbody>
                 <tr>
+                <?php if($get['edit'] == 1){ ?>
+                  <input type="hidden" name="edit" id="edit"value="1">
+                  <input type="hidden" name="id" id="id" value="<?php $list['id'] ?>">
+                  <?php }else {?>
                   <input type="hidden" name="contatos" id="contatos" value="1">
-                  <input type="hidden" name="edit" id="edit"value="<?php $list['id'] ?>">
-                  <input type="hidden" name="id" id="id" value="1">
+                  <?php }?>
                   <td scope="col-lg-4">
                     <input type="text" name="nome" id="nome" value="">
                   </td>
@@ -109,7 +130,21 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" form="001">Salvar mudanças</button>
+          <button type="submit" class="btn btn-primary" id="btn1" form="001">Salvar mudanças</button>
+          <script>
+          const btn = document.getElementById('btn1');
+
+            btn.addEventListener('click', function handleClick(event) {
+              //  if you are submitting a form (prevents page reload)
+              event.preventDefault(); 
+              const inputs = document.querySelectorAll('#nome, #email, #numero');
+
+              inputs.forEach(input => {
+                input.value = '';
+              });
+
+              });
+              </script>
         </div>
       </div>
     </div>
@@ -187,9 +222,17 @@
                     <td><?=$linhas2['email'] ?></td>
                     <td><?=$linhas2['numero'] ?></td>
                     <th >
-                     <a href="index.php?edit=1&id=<?= $linhas2['id']?>" >
+                     <a id="anc1" href="index.php?edit=1&id=<?= $linhas2['id']?>" >
                         <button class="btn text-nowrap" href="index.php?edit=1&id=<?= $linhas2['id']?>" type="button"data-bs-toggle="tooltip" data-bs-placement="right" title="editar esse contato" style="height:50px; width:50px; padding:0px 0px ;">
                           <img class="img-fluid" src="engrenagem.jpg" style="height:50px; width:50px;">
+                       
+                          <script>
+                            const anc = document.getElementById('anc1');
+                            anc.addEventListener('click', function handleClick(event){
+                              event.preventDefault();
+                              $('#editar').modal('show');
+                            })
+                          </script>
                         </button>
                       </a>  
                     </th>
@@ -202,6 +245,12 @@
             <table class="table">
               <thead>
                 <tr>
+                <?php if($get['edit'] == 1){ ?>
+                  <input type="hidden" name="edit" id="edit"value="1">
+                  <input type="hidden" name="id" id="id" value="<?php $list['id'] ?>">
+                  <?php }else {?>
+                  <input type="hidden" name="contatos" id="contatos" value="1">
+                  <?php }?>
                   <th scope="col-lg-4">
                     <label for="nome">Nome</label>
                   </th>
@@ -270,9 +319,19 @@
                     <td><?=$linhas3['email'] ?></td>
                     <td><?=$linhas3['numero'] ?></td>
                     <th >
-                      <button class="btn text-nowrap" type="button"data-bs-toggle="tooltip" data-bs-placement="right" title="excluir esse contato" style="height:50px; width:50px; padding:0px 0px ;">
-                        <img class="img-fluid" src="deletar.jpg" style="height:50px; width:50px;">
-                      </button>
+                     <a id="anc2" href="index.php?dell=1&id=<?= $linhas2['id']?>" >
+                        <button class="btn text-nowrap" href="index.php?edit=1&id=<?= $linhas2['id']?>" type="button"data-bs-toggle="tooltip" data-bs-placement="right" title="excluir esse contato" style="height:50px; width:50px; padding:0px 0px ;">
+                          <img class="img-fluid" src="deletar.jpg" style="height:50px; width:50px;">
+                       
+                          <script>
+                            const anc = document.getElementById('anc2');
+                            anc.addEventListener('click', function handleClick(event){
+                              event.preventDefault();
+                              $('#excluir').modal('show');
+                            })
+                          </script>
+                        </button>
+                      </a>  
                     </th>
                 </tr>
                 <?php }?>
