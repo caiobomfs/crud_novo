@@ -4,10 +4,10 @@
   $post = filter_input_array(INPUT_POST, FILTER_DEFAULT);
   $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
   
-  
+ 
   
   if(isset($post['contatos']) && $post['contatos'] == 1){
-
+    
       if(!empty($post['nome'])){
 
           $nome = $post['nome'];
@@ -25,6 +25,7 @@
 
 
   if(isset($get['edit']) && $get['edit'] == 1){
+  
       $id = $get['id'];
       $select_edit = $db->query("SELECT * FROM contatos WHERE id = '$id'");
       $list = $select_edit->fetch_assoc();
@@ -136,21 +137,21 @@
       <br>
 
     <div class="d-flex justify-content-center">
-          <form action="" method="post" id="form1">
-            
                 
                 <?php if(isset($get['edit']) && $get['edit'] == 1){ ?>
+                  
+                  <form action="index.php" method="post" id="form1">
                   <div id="ed">
                     <input type="hidden" name="edit" id="edit" value="1">
-                    <input type="hidden" name="id" id="id" value="<?php $list['id'] ?>">
+                    <input type="hidden" name="id" id="idE" value="<?= $list['id'] ?>">
                     <label for="nome">Nome</label><br>
-                    <input type="text" name="nome" id="nomeE" value="<?php $list['nome'] ?>">
+                    <input type="text" name="nome" id="nomeE" value="<?= $list['nome'] ?>">
                     <br>
                     <label for="email">email</label><br>
-                    <input type="text" name="email" id="emailE" value="<?php  $list['email'] ?>">
+                    <input type="text" name="email" id="emailE" value="<?=  $list['email'] ?>">
                     <br>
                     <label for="numero">Telefone</label><br>
-                    <input type="text" name="numero" id="numeroE" value="<?php $list['numero'] ?>">
+                    <input type="text" name="numero" id="numeroE" value="<?= $list['numero'] ?>">
                     <br>
                     <br>
                     <input type="submit" value="gravar edições " id="editSave" form="form1"> 
@@ -159,10 +160,9 @@
             </form>  
                   <?php }else {?>
 
-                  <input type="hidden" name="contatos" id="contatos" value="1">
-
-                  <?php }?>
-            <form action="" method="post" id="form2">
+                  
+            <form action="index.php" method="post" id="form2">
+            <input type="hidden" name="contatos" id="contatos" value="1">
                   <div id="criador" style="display: none;" >
                     <label for="nome">Nome</label><br>
                     <input type="text" name="nome" id="nome" value="">
@@ -180,9 +180,10 @@
                 <br>
                 </div>
           </form>
+          <?php }?>
         </div>
         
-          <script>
+          <!-- <script>
           const btn = document.getElementById('createSave');
 
             btn.addEventListener('click', function handleClick(event) {
@@ -195,7 +196,7 @@
               });
 
               });
-              </script>
+              </script> -->
         
     <script>
         const targetDiv = document.getElementById("ed");
@@ -210,9 +211,9 @@
         btnoff.onclick = function(){
             targetDiv.style.display = "none";
             
-            document.getElementById("form1").submit();
             
-            window.location.href = "http://localhost:3000/index.php"
+            
+           
         } }
         </script>
         <script>
