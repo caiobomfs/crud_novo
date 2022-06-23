@@ -79,8 +79,8 @@
         
       
   
-        <section>
-        <table class="table table-bordered">
+        <section class="bg-light border  rounded mx-3">
+        <table class="table table-bordered  ">
             <thead>
               <tr>
                 <th scope="col-lg-2" class="col-lg-2">#id</th>
@@ -140,7 +140,7 @@
             
                 
                 <?php if(isset($get['edit']) && $get['edit'] == 1){ ?>
-                  <div id="ed">
+                 
                     <input type="hidden" name="edit" id="edit" value="1">
                     <input type="hidden" name="id" id="id" value="<?php $list['id'] ?>">
                     <label for="nome">Nome</label><br>
@@ -155,7 +155,7 @@
                     <br>
                     <input type="submit" value="gravar edições " id="editSave" form="form1"> 
                 
-                  </div>
+                  
             </form>  
                   <?php }else {?>
 
@@ -163,7 +163,7 @@
 
                   <?php }?>
             <form action="" method="post" id="form2">
-                  <div id="criador" style="display: none;" >
+                  <div style="display: none;" >
                     <label for="nome">Nome</label><br>
                     <input type="text" name="nome" id="nome" value="">
                     <br>
@@ -198,7 +198,7 @@
               </script>
         
     <script>
-        const targetDiv = document.getElementById("ed");
+        const targetDiv = document.getElementById("form1");
         const btnA = document.getElementById("anc1");
         const btnoff = document.getElementById("editSave");
         if (btnA !== undefined && btnA !== null) {
@@ -216,7 +216,7 @@
         } }
         </script>
         <script>
-        const revelador = document.getElementById("criador");
+        const revelador = document.getElementById("form2");
         const btn2 = document.getElementById("cc");
         btn2.onclick = function () {
             revelador.style.display = "block";
