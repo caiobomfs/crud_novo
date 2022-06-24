@@ -80,14 +80,14 @@
         
       
   
-        <section class="bg-light border border-dark rounded mx-3">
-        <table class="table table-bordered  ">
+        <section class="  rounded mx-3   ">
+        <table class="table table-bordered   table-responsive border-dark bg-light">
             <thead>
-              <tr>
-                <th scope="col-lg-2" class="col-lg-2">#id</th>
-                <th scope="col-lg-2" class="col-lg-3">Nome</th>
-                <th scope="col-lg-2" class="col-lg-3">E-mail</th>
-                <th scope="col-lg-2" class="col-lg-3">Telefone</th>
+              <tr style="background-color: #0CC0AB ; color: white;  font-weight: 800; font-size: 19px; ">
+                <th scope="col-lg-2" class="col-lg-1">#id</th>
+                <th scope="col-lg-2" class="col-lg-4">Nome</th>
+                <th scope="col-lg-2" class="col-lg-4">E-mail</th>
+                <th scope="col-lg-2" class="col-lg-2">Telefone</th>
                 <th class="col-lg-1"  style="height:50px; width:50px;"  style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;">
                 <img class="img-fluid" src="lapis.jpg" style="height:50px; width:50px;"></th>
                 <th class="col-lg-1" style="height:50px; width:50px;"  style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;">
@@ -99,37 +99,62 @@
                 while($linhas = $select->fetch_assoc()){
 
               ?>
-              <tr>
+              <tr  style=" color:  black;  font-weight: 700; font-size: 16px; ">
                   <td ><?=$linhas['id'] ?></td>
                   <td ><?=$linhas['nome'] ?></td>
                   <td ><?=$linhas['email'] ?></td>
                   <td ><?=$linhas['numero'] ?></td>
                   
              
-              <th>
+              <td>
                      <a id="anc1" href="index.php?edit=1&id=<?= $linhas['id']?>" >
                         <button class="btn text-nowrap" href="index.php?edit=1&id=<?= $linhas['id']?>" type="button"data-bs-toggle="tooltip" data-bs-placement="right" title="editar esse contato" style="height:50px; width:50px; padding:0px 0px ;">
                           <img class="img-fluid" src="engrenagem.jpg" style="height:50px; width:50px;">
                         </button>
                       </a>  
-                    </th>
-                    <th >
-                     <a id="anc2" href="index.php?dell=1&id=<?= $linhas['id']?>" >
-                        <button class="btn text-nowrap" href="index.php?edit=1&id=<?= $linhas['id']?>" type="button"data-bs-toggle="tooltip" data-bs-placement="right" title="excluir esse contato" style="height:50px; width:50px; padding:0px 0px ;">
+              </td>
+                    <td >
+                     
+                        <button class="btn text-nowrap" type="button" data-toggle="modal" data-target="#modalAviso" data-bs-toggle="tooltip" data-bs-placement="right" title="excluir esse contato" style="height:50px; width:50px; padding:0px 0px ;">
                           <img class="img-fluid" src="deletar.jpg" style="height:50px; width:50px;">
                         </button>
-                      </a>  
-                    </th>
+                      
+                    </td>
                     </tr>
+                    <div class="modal fade" id="modalAviso" tabindex="-1" role="dialog" aria-labelledby="modalAvisoLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header ">
+                        <h5 class="modal-title" id="modalAvisoLabel">Aviso</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p style="font-size: 20px; font-weight:600;">Tem certeza que deseja excluir esse contato?</p>
+                      </div>
+                      <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Não</button>
+
+                        <a id="anc2" href="index.php?dell=1&id=<?= $linhas['id']?>" >
+                        <button class="btn btn-primary btn-lg" type="button" >Sim</button>
+                        </a> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
               <?php }?>
             </tbody>  
           </table>
         </section>
+      
+       
+
         <!-- menu-->
     <section class="container d-flex justify-content-center mt-5">
         <div class="col-6 align-self-center">
             <div class=" d-flex row   justify-content-center mt-5">
-                <button type="button" class="col-lg-2  " id="cc">Criar contatos</button>
+                <button type="button" class="col-lg-2 btn btn-light" style="font-size: 18px ; font-weight: 500; " id="cc" >Criar contatos</button>
             </div>
         </div>
     </section>
@@ -141,7 +166,7 @@
                 <?php if(isset($get['edit']) && $get['edit'] == 1){ ?>
                   
                   <form action="index.php" method="post" id="form1">
-                  <div id="ed">
+                  <div id="ed" >
                     <input type="hidden" name="edit" id="edit" value="1">
                     <input type="hidden" name="id" id="idE" value="<?= $list['id'] ?>">
                     <label for="nome">Nome</label><br>
@@ -183,20 +208,6 @@
           <?php }?>
         </div>
         
-          <!-- <script>
-          const btn = document.getElementById('createSave');
-
-            btn.addEventListener('click', function handleClick(event) {
-              //  if you are submitting a form (prevents page reload)
-              event.preventDefault(); 
-              const inputs = document.querySelectorAll('#nome, #email, #numero');
-
-              inputs.forEach(input => {
-                input.value = '';
-              });
-
-              });
-              </script> -->
         
     <script>
         const targetDiv = document.getElementById("ed");
@@ -234,7 +245,11 @@
         
         </script>
     
-    
+    <script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
