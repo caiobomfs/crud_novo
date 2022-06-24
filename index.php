@@ -1,5 +1,5 @@
 <?php 
-  require './config.php';
+  require './config/config.php';
 
   $post = filter_input_array(INPUT_POST, FILTER_DEFAULT);
   $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
@@ -89,9 +89,9 @@
                 <th scope="col-lg-2" class="col-lg-4">E-mail</th>
                 <th scope="col-lg-2" class="col-lg-2">Telefone</th>
                 <th class="col-lg-1"  style="height:50px; width:50px;"  style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;">
-                <img class="img-fluid" src="lapis.jpg" style="height:50px; width:50px;"></th>
+                <img class="img-fluid" src="./images/lapis.jpg" style="height:50px; width:50px;"></th>
                 <th class="col-lg-1" style="height:50px; width:50px;"  style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;">
-                <img class="img-fluid" src="lixeira.jpg" style="height:50px; width:50px;"></th>
+                <img class="img-fluid" src="./images/lixeira.jpg" style="height:50px; width:50px;"></th>
               </tr>
             </thead>
             <tbody>
@@ -109,20 +109,20 @@
               <td>
                      <a id="anc1" href="index.php?edit=1&id=<?= $linhas['id']?>" >
                         <button class="btn text-nowrap" href="index.php?edit=1&id=<?= $linhas['id']?>" type="button"data-bs-toggle="tooltip" data-bs-placement="right" title="editar esse contato" style="height:50px; width:50px; padding:0px 0px ;">
-                          <img class="img-fluid" src="engrenagem.jpg" style="height:50px; width:50px;">
+                          <img class="img-fluid" src="./images/engrenagem.jpg" style="height:50px; width:50px;">
                         </button>
                       </a>  
               </td>
                     <td >
                      
                         <button class="btn text-nowrap" type="button" data-toggle="modal" data-target="#modalAviso" data-bs-toggle="tooltip" data-bs-placement="right" title="excluir esse contato" style="height:50px; width:50px; padding:0px 0px ;">
-                          <img class="img-fluid" src="deletar.jpg" style="height:50px; width:50px;">
+                          <img class="img-fluid" src="./images/deletar.jpg" style="height:50px; width:50px;">
                         </button>
                       
                     </td>
                     </tr>
                     <div class="modal fade" id="modalAviso" tabindex="-1" role="dialog" aria-labelledby="modalAvisoLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                       <div class="modal-header ">
                         <h5 class="modal-title" id="modalAvisoLabel">Aviso</h5>
@@ -130,8 +130,8 @@
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                      <div class="modal-body">
-                        <p style="font-size: 20px; font-weight:600;">Tem certeza que deseja excluir esse contato?</p>
+                      <div class="modal-body d-flex justify-content-center">
+                        <p class="" style="font-size: 20px; font-weight:600;">Tem certeza que deseja excluir esse contato?</p>
                       </div>
                       <div class="modal-footer d-flex justify-content-center">
                         <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Não</button>
