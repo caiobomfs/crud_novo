@@ -1,0 +1,45 @@
+*{ 
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.fonte
+{
+    color:  black; 
+     font-weight: 700; 
+     font-size: 16px;
+}
+.font_modal
+{
+    font-size: 20px; 
+    font-weight:600;
+}
+.bg
+{
+    background-color: #0CC0AB ; 
+    color: white;  
+    font-weight: 800; 
+    font-size: 19px;
+}
+
+.header_imagem 
+{
+    height:50px; 
+    width:50px;
+    width: 12.499999995%;
+    flex: 0 0 12.499%;
+    max-width: 12.499%;
+}
+
+.img_botao
+{
+    height:50px; 
+    width:50px ;
+    
+}
+.padder
+{
+    padding:0px 0px ;
+}
