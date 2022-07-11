@@ -22,7 +22,8 @@ if (isset($post['contatos']) && $post['contatos'] == 1) {
         $nome = $post['nome'];
         $email = $post['email'];
         $numero = $post['numero'];
-        $sql = "INSERT INTO `contatos` (`id`, `nome`, `email`, `numero`) VALUES (NULL, '$nome', '$email', '$numero');";
+        $sql = "INSERT INTO `contatos` (`id`, `nome`, `email`, `numero`) 
+        VALUES (NULL, '$nome', '$email', '$numero');";
         
         $db->query($sql);
     }
@@ -49,7 +50,8 @@ if (isset($post['edit']) && $post['edit'] == 1) {
       $numero = $post['numero'];
 
 
-      $sql_update = " UPDATE contatos SET nome = '$nome', email = '$email', numero = '$numero' WHERE id = '$id' ";
+      $sql_update = " UPDATE contatos SET nome = '$nome', email = '$email', 
+      numero = '$numero' WHERE id = '$id' ";
 
       $db->query($sql_update);
 
@@ -75,11 +77,12 @@ if (isset($get['dell']) && $get['dell'] == 1) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="Description" content="Enter your description here"/>
-  <link rel="stylesheet" href="./CSS/main.css">
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.slim.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="./CSS/main.css">
 
   <title>Agenda</title>
 </head>
@@ -97,12 +100,13 @@ if (isset($get['dell']) && $get['dell'] == 1) {
     <thead>
       <tr class="bg">
         <th scope="col-lg-2" class="col-lg-1">#id</th>
+        <th scope="col-lg-2" class="col-lg-1">Categoria</th>
         <th scope="col-lg-2" class="col-lg-4">Nome</th>
         <th scope="col-lg-2" class="col-lg-4">E-mail</th>
         <th scope="col-lg-2" class="col-lg-2">Telefone</th>
-        <th class="col-lg-1 header_imagem"  >
+        <th scope="col-lg-1" class="col-lg-1 header_imagem"  >
         <img class="img-fluid img_botao" src="./images/lapis.jpg"></th>
-        <th class="col-lg-1 header_imagem" >
+        <th scope="col-lg-1" class="col-lg-1 header_imagem" >
         <img class="img-fluid img_botao" src="./images/lixo.jpg"></th>
       </tr>
     </thead>
@@ -113,11 +117,12 @@ if (isset($get['dell']) && $get['dell'] == 1) {
             ?>
           <tr class="fonte">
               <td ><?php echo$linhas['id'] ?></td>
+              <td ><?php ?></td>
               <td ><?php echo$linhas['nome'] ?></td>
               <td ><?php echo$linhas['email'] ?></td>
               <td ><?php echo$linhas['numero'] ?></td>
           
-              <td>
+              <td >
                 <a id="anc1" 
                   href="index.php?edit=1&id=<?php echo $linhas['id']?>" >
 
@@ -181,7 +186,8 @@ if (isset($get['dell']) && $get['dell'] == 1) {
     <section class="container d-flex justify-content-center mt-5">
         <div class="col-6 align-self-center">
             <div class=" d-flex row   justify-content-center mt-5">
-                <button type="button" class="col-lg-2 btn btn-light" style="font-size: 18px ; font-weight: 500; " id="cc" >Criar contatos</button>
+                <button type="button" class="col-lg-2 btn btn-light menu_font"  
+                id="cc" >Criar Contatos </button>
             </div>
         </div>
     </section>
@@ -195,18 +201,27 @@ if (isset($get['dell']) && $get['dell'] == 1) {
                   <form action="index.php" method="post" id="form1">
                   <div id="ed" >
                     <input type="hidden" name="edit" id="edit" value="1">
-                    <input type="hidden" name="id" id="idE" value="<?php echo $list['id'] ?>">
+                    <input type="hidden" name="id" id="idE" 
+                    value="<?php echo $list['id'] ?>">
+
                     <label for="nome">Nome</label><br>
-                    <input type="text" name="nome" id="nomeE" value="<?php echo $list['nome'] ?>">
+                    <input type="text" name="nome" id="nomeE" 
+                    value="<?php echo $list['nome'] ?>">
+
                     <br>
                     <label for="email">email</label><br>
-                    <input type="text" name="email" id="emailE" value="<?php echo  $list['email'] ?>">
+                    <input type="text" name="email" id="emailE" 
+                    value="<?php echo  $list['email'] ?>">
+
                     <br>
                     <label for="numero">Telefone</label><br>
-                    <input type="text" name="numero" id="numeroE" value="<?php echo $list['numero'] ?>">
+                    <input type="text" name="numero" id="numeroE" 
+                    value="<?php echo $list['numero'] ?>">
+                    
                     <br>
                     <br>
-                    <input type="submit" value="gravar edições " id="editSave" form="form1"> 
+                    <input type="submit" value="gravar edições" 
+                    id="editSave" form="form1"> 
                 
                   </div>
             </form>  
