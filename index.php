@@ -96,7 +96,7 @@ if (isset($get['dell']) && $get['dell'] == 1) {
       
   
 <section class="  rounded mx-3   ">
-  <table class="table table-bordered   table-responsive border-dark bg-light">
+  <table class="table table-bordered table-responsive border-dark bg-light">
     <thead>
       <tr class="bg">
         <th scope="col-lg-2" class="col-lg-1">#id</th>
@@ -230,7 +230,7 @@ if (isset($get['dell']) && $get['dell'] == 1) {
                   
             <form action="index.php" method="post" id="form2">
             <input type="hidden" name="contatos" id="contatos" value="1">
-                  <div id="criador" style="display: none;" >
+                  <div id="criador" >
                     <label for="nome">Nome</label><br>
                     <input type="text" name="nome" id="nome" value="">
                     <br>
