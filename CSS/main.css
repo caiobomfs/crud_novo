@@ -31,6 +31,7 @@
     width: 12.499999995%;
     flex: 0 0 12.499%;
     max-width: 12.499%;
+    
 }
 
 .img_botao
@@ -42,4 +43,14 @@
 .padder
 {
     padding:0px 0px ;
+}
+
+.menu_font
+{
+    font-size: 18px ; 
+    font-weight: 500;
+}
+#criador
+{
+    display: block;
 }
