@@ -10,8 +10,34 @@
  * @license  https://github.com/caiobomfs/testecrud 
  * @link     https://github.com/caiobomfs/testecrud 
  */ 
-require 'processos.php';
- 
+require './config/config.php';
+
+if (isset($_GET['id'])) {
+        $idContato = $_GET['id'];
+}
+if (isset($idContato)) {
+
+    $acao = 'edit';
+    
+    $query = "SELECT * FROM contatos where id = $idContato";
+    $sql = $db->query($query);
+    $contato = $sql->fetch_assoc();
+
+    $idCategoria = $contato['id_categoria'];
+    $nome        = $contato['nome'];
+    $email       = $contato['email'];
+    $telefone    = $contato['telefone'];
+    
+    $val_nome = " $nome";
+    $val_email = " $email";
+    $val_telefone = "$telefone";
+} else {
+    $acao = 'criar';
+    $val_nome ="";
+    $val_email ="";
+    $val_telefone ="";
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,118 +57,37 @@ require 'processos.php';
   <title>cadastro e edição</title>
 </head>
 <body class="bg-info">
-<div class="d-flex justify-content-center">
-                
-                <?php if (isset($get['edit']) && $get['edit'] == 1) { ?>
-                  
-                  <form action="index.php" method="post" id="form1">
-                  <div id="ed" >
-                    <input type="hidden" name="edit" id="edit" value="1">
-                    <input type="hidden" name="id" id="idE" 
-                    value="<?php echo $list['id'] ?>">
-                    
-                    <label for="categoriaID">categoria</label><br>
-                    <?php
-                    while ($linhas = $select->fetch_assoc()) {
+  <div class="d-flex justify-content-center">           
 
-                        ?>
-                    <select name="categoriaID" id="categoriaID" form="form2">
-                        <option value="<?php echo$linhas['categoriaID']?>">
-                        <?php echo$linhas['categoriaID']?></option>
-                    </select>
-                    <?php } ?>
-                    <br>
-                    <label for="nome">Nome</label><br>
-                    <input type="text" name="nome" id="nomeE" 
-                    value="<?php echo $list['nome'] ?>">
+      <form action="processos.php" method="post" id="form1">
+        <input type="hidden" name="acao" id="acao" value="<?php echo $acao; ?>">
+        <input type="hidden" name="id_contato" id="id_contato" value="<?php echo $idContato;?>">
+    
+        <br>
+        <label for="categoria">Categoria</label><br>
+        <?php include_once("combo_categorias.php"); 
+        ?>
 
-                    <br>
-                    <label for="email">email</label><br>
-                    <input type="text" name="email" id="emailE" 
-                    value="<?php echo  $list['email'] ?>">
+        <br>
+        <label for="nome">Nome</label>
+        <br>
+      
+        <input type="text" name="nome" id="nome" value="<?php echo $val_nome;?>" >
 
-                    <br>
-                    <label for="numero">Telefone</label><br>
-                    <input type="text" name="numero" id="numeroE" 
-                    value="<?php echo $list['numero'] ?>">
-                    
-                    <br>
-                    <br>
-                    <input type="submit" value="gravar edições" 
-                    id="editSave" form="form1"> 
-                
-                  </div>
-            </form>  
-                <?php } else {?>
+        <br>
+        <label for="email">email</label><br>
+        <input type="text" name="email" id="email" value="<?php echo $val_email;?>">
 
-                  
-            <form action="index.php" method="post" id="form2">
-            <input type="hidden" name="contatos" id="contatos" value="1">
-                  <div id="criador" >
-                    <label for="categoriaID">categoria</label><br>
-                    <?php
-                    while ($linhas = $select->fetch_assoc()) {
+        <br>
+        <label for="telefone">Telefone</label><br>
+        <input type="text" name="telefone" id="telefone" value="<?php echo $val_telefone;?>" >
 
-                        ?>
-                    <select name="categoriaID" id="categoriaID" form="form2">
-                        <option value="<?php echo$linhas['categoriaID']?>">
-                        <?php echo$linhas['categoriaID']?></option>
-                    </select>
-                    <?php } ?>
-                    <br>
-                    <label for="nome">Nome</label><br>
-                    <input type="text" name="nome" id="nome" value="">
-                    <br>
-                    <label for="email">email</label><br>
-                    <input type="text" name="email" id="email" value="">
-                    <br>
-                    <label for="numero">Telefone</label><br>
-                    <input type="text" name="numero" id="numero" value="">
-                    <br>
-                    <br>
-                
-                <input type="submit" value="gravar " id="createSave" form="form2"> 
-                <br>
-                <br>
-                </div>
-          </form>
-                <?php }?>
-        </div>
-        <script>
-        const targetDiv = document.getElementById("ed");
-        const btnA = document.getElementById("anc1");
-        const btnoff = document.getElementById("editSave");
-        if (btnA !== undefined && btnA !== null) {
-        btnA.onclick = function () {
-            targetDiv.style.display = "block";
-        }};
-        
-        if (btnoff !== undefined && btnoff !== null) {
-        btnoff.onclick = function(){
-            targetDiv.style.display = "none";
-            
-            
-            
-           
-        } }
-        </script>
-        <!-- <script>
-        const revelador = document.getElementById("criador");
-        const btn2 = document.getElementById("cc");
-        btn2.onclick = function () {
-            revelador.style.display = "block";
-        };
-        const btnoff2 = document.getElementById("createSave");
+        <br>
+        <br>
+        <input type="submit" value="Salvar contato" id="submit"> 
 
-        btnoff2.onclick = function(){
-          
-            revelador.style.display = "none";
-            
-            }
-
-            
-        
-        </script> -->
+      </form>  
+  </div>
     
     <script>
 if ( window.history.replaceState ) {

@@ -16,4 +16,7 @@
   $bas ='agenda';
 
   $db = new mysqli($srv, $usr, $pas, $bas);
+
+
+  //ini_set('display_errors', 'off');
 ?>

@@ -15,60 +15,43 @@
   $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
   
  
-  
-if (isset($post['contatos']) && $post['contatos'] == 1) {
-    if (!empty($post['nome']) ) {
 
-        $categoriaID = $post['categoriaID'];
-        $nome = $post['nome'];
-        $email = $post['email'];
-        $numero = $post['numero'];
-        $sql = "INSERT INTO `contatos` (`id`, `categoriaID`, `nome`, `email`, `numero`) 
-        VALUES (NULL,  '$categoriaID', '$nome', '$email', '$numero');";
-        
-        $db->query($sql);
-    }
 
+$idCategoria = $post['id_categoria'];
+$idContato   = $post['id_contato']; 
+$nome        = $post['nome'];
+$email       = $post['email'];
+$telefone    = $post['telefone'];
+
+
+//Aações
+switch ($post['acao']) {
+case 'criar':
+            
+    echo    $query = "INSERT INTO `contatos` (`id_categoria`, `nome`, `email`, `telefone`) 
+    VALUES ($idCategoria, '$nome', '$email', '$telefone');";
+
+    break;
+
+case 'edit':
+            
+    $query = " UPDATE contatos SET id_categoria = '$idCategoria', nome = '$nome', email = '$email', 
+    telefone = '$telefone' WHERE id = '$idContato' ";
+
+    break;  
 }
+if (isset($get['delete'])) { 
+     echo  $query = "DELETE FROM contatos WHERE  id = ".$get['id'];
+}  
+$select = $db->query($query);
 
+
+header("Location: index.php");
+?>
 
  
-
-
-if (isset($get['edit']) && $get['edit'] == 1) {
-  
-      $id = $get['id'];
-      $select_edit = $db->query("SELECT * FROM contatos WHERE id = '$id'");
-      $list = $select_edit->fetch_assoc();
-
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
 }
-
-if (isset($post['edit']) && $post['edit'] == 1) {
-
-      $id = $post['id'];
-      $categoriaID = $post['categoriaID'];
-      $nome = $post['nome'];
-      $email = $post['email'];
-      $numero = $post['numero'];
-
-
-      $sql_update = " UPDATE contatos SET categoriaID = '$categoriaID', nome = '$nome', email = '$email', 
-      numero = '$numero' WHERE id = '$id' ";
-
-      $db->query($sql_update);
-
-}
-
-
-if (isset($get['dell']) && $get['dell'] == 1) {
-
-      $id = $get['id'];
-
-      $sql_dell = "DELETE FROM contatos WHERE  id = '$id'";
-
-      $db->query($sql_dell); 
-}
-
-   $select = $db->query("SELECT * FROM contatos");
-  
-?>
+</script>
