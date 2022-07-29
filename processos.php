@@ -28,15 +28,17 @@ $telefone    = $post['telefone'];
 switch ($post['acao']) {
 case 'criar':
             
-    echo    $query = "INSERT INTO `contatos` (`id_categoria`, `nome`, `email`, `telefone`) 
+    $query = "INSERT INTO `contatos` (`id_categoria`, `nome`, `email`, `telefone`) 
     VALUES ($idCategoria, '$nome', '$email', '$telefone');";
 
     break;
 
 case 'edit':
             
-    $query = " UPDATE contatos SET id_categoria = '$idCategoria', nome = '$nome', email = '$email', 
-    telefone = '$telefone' WHERE id = '$idContato' ";
+    $query = " UPDATE contatos 
+    SET id_categoria = '$idCategoria', nome = '$nome', email = '$email', 
+    telefone = '$telefone' 
+    WHERE id = '$idContato' ";
 
     break;  
 }

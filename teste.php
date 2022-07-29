@@ -33,32 +33,16 @@ require './config/config.php';
 
     <title>Agenda</title>
   </head>
-      
 <body class="bg-info">
   <header>
     <h1 class="d-flex justify-content-center mb-5 text-white">
       Bem vindo a agenda Telefonica</h1>
   </header>
 
+        
 
-
-<!-- menu-->
-  <section class="container d-flex justify-content-center mt-5">
-    <div class="col-6 align-self-center">
-      <div class=" d-flex row justify-content-around mt-5 justify">
-        <a  class="col-lg-2"
-            href="cadas_edit.php">
-            <button type="button" class="btn btn-light menu_font"  
-            id="" >Criar Contatos </button>
-        </a>
-        <a class="col-lg-2 "
-            href="gestaoCatego.php">
-          <button type="button" class="btn btn-light menu_font"
-          id="">Gerenciar Categorias</button>
-        </a>
-      </div>
-    </div>
-  </section> 
+  <!-- menu-->
+  
 
   <br><br>
   <section class="rounded mx-3">

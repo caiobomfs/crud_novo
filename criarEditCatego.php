@@ -13,28 +13,26 @@
 require './config/config.php';
 
 $acao = 'criar';
-$idCategoria  = "";
-$nome        = "";
-$email       = "";
-$telefone    = "";
+
+$categoriaNome  = "";
 
 if (isset($_GET['id'])) {
-        $idContato = $_GET['id'];
+        $idCategoria = $_GET['id'];
 }
-if (isset($idContato)) {
+if (isset($idCategoria)) {
 
-    $acao = 'edit';
+    echo $acao = 'edit';
     
-    $query = "SELECT * FROM contatos where id = $idContato";
+    $query = "SELECT * FROM categorias where id = $idCategoria";
     $sql = $db->query($query);
-    $contato = $sql->fetch_assoc();
+    $categoria = $sql->fetch_assoc();
 
-    $idCategoria = $contato['id_categoria'];
-    $nome        = $contato['nome'];
-    $email       = $contato['email'];
-    $telefone    = $contato['telefone'];
+    $idCategoria =  $categoria['id'];
+    $categoriaNome       = $categoria['categoria'];
+    
     
 } 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,32 +54,19 @@ if (isset($idContato)) {
 <body class="bg-info">
   <div class="d-flex justify-content-center">           
 
-      <form action="processos.php" method="post" id="form1">
+      <form action="processosGestao.php" method="post" id="form1">
         <input type="hidden" name="acao" id="acao" value="<?php echo $acao; ?>">
-        <input type="hidden" name="id_contato" id="id_contato" value="<?php echo $idContato;?>">
+        <input type="hidden" name="idCategoria" id="idCategoria" value="<?php echo $idCategoria;?>">
     
         <br>
-        <label for="categoria">Categoria</label><br>
-        <?php include_once("combo_categorias.php"); 
-        ?>
-
-        <br>
-        <label for="nome">Nome</label>
+        <label for="nome">Categoria</label>
         <br>
       
-        <input type="text" name="nome" id="nome" value="<?php echo $nome;?>" >
-
-        <br>
-        <label for="email">email</label><br>
-        <input type="text" name="email" id="email" value="<?php echo $email;?>">
-
-        <br>
-        <label for="telefone">Telefone</label><br>
-        <input type="text" name="telefone" id="telefone" value="<?php echo $telefone;?>" >
+        <input type="text" name="categoria" id="categoria" value="<?php echo $categoriaNome;?>" >
 
         <br>
         <br>
-        <input type="submit" value="Salvar contato" id="submit"> 
+        <input type="submit" value="Salvar categoria" id="submit"> 
 
       </form>  
   </div>
